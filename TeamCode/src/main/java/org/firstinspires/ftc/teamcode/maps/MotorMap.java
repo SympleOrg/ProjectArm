@@ -10,7 +10,9 @@ package org.firstinspires.ftc.teamcode.maps;
  * </pre>
  **/
 public enum MotorMap {
-    ;
+    ARM_ANGLE("arm_angle", 288, 1000),
+    ARM_LENGTH("arm_length", 288, 1000);
+
     private final String id;
     private final double maxRPM;
     private final int ticksPerRev;

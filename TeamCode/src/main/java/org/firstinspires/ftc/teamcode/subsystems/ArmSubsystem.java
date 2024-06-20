@@ -8,6 +8,10 @@ import org.firstinspires.ftc.teamcode.maps.MotorMap;
 import org.firstinspires.ftc.teamcode.util.MathUtil;
 
 public class ArmSubsystem extends SubsystemBase {
+
+    public static final double WHEEL_RADIUS = 0.045f;
+    public static final double METERS_PER_REV = (Math.PI * 2) * WHEEL_RADIUS;
+
     private final MotorEx motorLength;
     private final MotorEx motorAngle;
 
@@ -21,7 +25,7 @@ public class ArmSubsystem extends SubsystemBase {
         motorLength.set(power);
     }
 
-    public void setMotorAngle(double power) {
+    public void setMotorAnglePower(double power) {
         motorAngle.set(power);
     }
 
@@ -29,7 +33,11 @@ public class ArmSubsystem extends SubsystemBase {
         return MathUtil.countsToDeg(this.motorAngle.getCurrentPosition(), MotorMap.ARM_ANGLE.getTicksPerRev());
     }
 
-    public double getMotorLengthPos() {
+    public double getMotorLengthPosInDeg() {
         return MathUtil.countsToDeg(this.motorLength.getCurrentPosition(), MotorMap.ARM_LENGTH.getTicksPerRev());
+    }
+
+    public double getMotorLengthPosInMeter() {
+        return getMotorLengthPosInDeg() * METERS_PER_REV;
     }
 }

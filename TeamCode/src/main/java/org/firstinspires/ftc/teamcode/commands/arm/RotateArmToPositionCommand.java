@@ -5,13 +5,13 @@ import com.arcrobotics.ftclib.controller.PController;
 
 import org.firstinspires.ftc.teamcode.subsystems.ArmSubsystem;
 
-public class MoveArmToPosition extends CommandBase {
+public class RotateArmToPositionCommand extends CommandBase {
     private final double Kp = 0;
     private final ArmSubsystem armSubsystem;
     private final PController pController;
     private final double point;
 
-    public MoveArmToPosition(ArmSubsystem armSubsystem, double point) {
+    public RotateArmToPositionCommand(ArmSubsystem armSubsystem, double point) {
         super();
 
         addRequirements(armSubsystem);
@@ -32,6 +32,16 @@ public class MoveArmToPosition extends CommandBase {
     public void execute() {
         double rawPower = pController.calculate(this.armSubsystem.getMotorAnglePos());
 
-        this.armSubsystem.setMotorAngle(rawPower);
+        this.armSubsystem.setMotorAnglePower(rawPower);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        this.armSubsystem.setMotorAnglePower(0);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return this.pController.atSetPoint();
     }
 }

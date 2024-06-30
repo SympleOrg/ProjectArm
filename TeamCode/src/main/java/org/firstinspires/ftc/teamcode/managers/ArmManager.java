@@ -48,12 +48,26 @@ public class ArmManager {
         return new Line[]{};
     }
 
-    public boolean isFinalPositionPossible(Line finalPos, Line[] surroundingLines) {
-        double x1 = Math.cos(angle) * length;
-        double y1 = Math.sin(angle) * length;
+    public boolean isFinalPositionPossible(Line finalPos) {
+        Line[] surroundingLines = getSurroundingLines(finalPos);
 
-        double x2 = Math.cos(angle) * length;
-        double y2 = Math.sin(angle) * length;
+        double x1 = Math.cos(surroundingLines[0].angle) * surroundingLines[0].length;
+        double y1 = Math.sin(surroundingLines[0].angle) * surroundingLines[0].length;
+
+        double x2 = Math.cos(surroundingLines[1].angle) * surroundingLines[1].length;
+        double y2 = Math.sin(surroundingLines[1].angle) * surroundingLines[1].length;
+
+        double alpha = sympleModulo(finalPos.angle, 360);
+
+        double m = (y1-y2)/(x1-x2);
+        double b = y1-(m*x1);
+
+        double x3 = b/(Math.tan(alpha)-m);
+        double y3 = Math.tan(alpha)*x3;
+
+        double dist = Math.sqrt(x3*x3 + y3*y3);
+
+        return dist >= finalPos.length;
     }
 
     public static double sympleModulo(double x, double y) {

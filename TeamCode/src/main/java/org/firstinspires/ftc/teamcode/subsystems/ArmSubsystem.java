@@ -12,6 +12,8 @@ public class ArmSubsystem extends SubsystemBase {
     public static final double WHEEL_RADIUS = 0.045f;
     public static final double METERS_PER_REV = (Math.PI * 2) * WHEEL_RADIUS;
 
+    public static final double START_POS = 0;
+
     private final MotorEx motorLength;
     private final MotorEx motorAngle;
 
@@ -30,7 +32,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public double getMotorAnglePos() {
-        return MathUtil.countsToDeg(this.motorAngle.getCurrentPosition(), MotorMap.ARM_ANGLE.getTicksPerRev());
+        return MathUtil.countsToDeg(this.motorAngle.getCurrentPosition(), MotorMap.ARM_ANGLE.getTicksPerRev()) + START_POS;
     }
 
     public double getMotorLengthPosInDeg() {

@@ -12,8 +12,8 @@ public class SetArmSizeCommand extends CommandBase {
     private final double length;
 
     /**
-     * point in meters
-     * **/
+     * @param length in meters
+     **/
     public SetArmSizeCommand(ArmSubsystem armSubsystem, double length) {
         super();
 
